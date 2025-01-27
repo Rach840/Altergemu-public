@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id         Int             @id @default(autoincrement())
+  name       String
+  content    Json
+  authorId   Int?
+  createdAt  DateTime        @default(now())
+  postStatus Post_postStatus @default(EXPECTATION)
+  User       User?           @relation(fields: [authorId], references: [id])
+
+  @@index([authorId], map: "Post_authorId_fkey")
+}
+
+model ThirdPartyTokens {
+  id           String @id
+  service      String
+  accessToken  String @db.LongText
+  refreshToken String @db.LongText
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  firstName String
+  lastName  String
+  bio       String    @db.LongText
+  email     String    @unique
+  password  String
+  avatar    String    @default("")
+  role      User_role @default(UNVERIFIED)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  devStatus String    @default("")
+  Post      Post[]
+}
+
+enum Post_postStatus {
+  EXPECTATION
+  APPROVED
+}
+
+enum User_role {
+  USER
+  ADMIN
+  UNVERIFIED
+}
