@@ -2,32 +2,19 @@
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import ButtonHero from "./button";
-import { animated, useInView, useSpring } from '@react-spring/web'
+import { a, animated, useInView, useScroll, useSpring } from '@react-spring/web'
 import { useState } from "react";
 import Link from "next/link";
-
-export default function Header() {
+import React from "react";
+import { CodeXml } from 'lucide-react';
+export default function Header({ refer = undefined, variant = "home" }) {
 	const navigation = [
-		{ name: 'Описание', href: 'about' },
-		{ name: 'Проекты', href: 'projects' },
-		{ name: 'Участники', href: 'team' },
+		{ name: 'Описание', href: 0.5 },
+		{ name: 'Проекты', href: 1 },
+		{ name: 'Участники', href: 1.4 },
 	]
-	const [ref, springs] = useInView(
-		() => ({
 
-			from: {
-				background: "none",
-				position: 'relative'
-			},
-			to: {
-				background: "rgba(255,171,0,1)",
-				position: 'fixed',
-			},
-		}),
-		{
-			rootMargin: '-40% 0%',
-		}
-	)
+	const containerRef = React.useRef<HTMLDivElement>(null!)
 	const headerAnimation = useSpring({
 		config: { duration: 350 },
 		from: {
@@ -38,20 +25,35 @@ export default function Header() {
 			top: 0,
 		}
 	})
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const [textStyles, textApi] = useSpring(() => ({
+		position: 'absolute',
+	}))
+	// const { scrollYProgress } = useScroll({
+	// 	container: containerRef,
+	// 	onChange: ({ value: { scrollYProgress } }) => {
+	// 		console.log(scrfo)
+	// 		if (scrollYProgress < 1) {
+	// 			textApi.start({ position: 'absolute' })
+	// 		} else {
+	// 			textApi.start({ position: 'fixed' })
+
+	// 		}
+	// 	},
+	// 	default: {
+	// 		immediate: true,
+	// 	},
+	// })
+
+	// className={scrollYProgress ? ' left-0 top-20 fixed  inset-x-0 top-0 z-50 bg-slate-900' : 'absolute inset-x-0 top-0 z-50'}
 	return (
-		<animated.div ref={ref} style={{ ...springs, ...headerAnimation, position: 'relative' }}>
-			<header className="absolute inset-x-0 top-0 z-50">
+		<animated.div ref={containerRef} className=' top-0 inset-x-0 z-50' style={{ ...textStyles }}>
+			<header className={refer ? " absolute inset-x-0 top-0 z-50" : "bg-gradient-to-r from-indigo-400 to-purple-600 absolute inset-x-0 top-0 z-50"} >
 				<nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
 					<div className="flex lg:flex-1">
-						<a href="#" className="-m-1.5 p-1.5">
-
-							<img
-								alt=""
-								src="../atergemu-logo.png"
-
-							/>
-						</a>
+						<Link href="/" className="flex items-center text-4xl font-bold text-indigo-400 -m-1.5 p-1.5">
+							<CodeXml className=" mr-5" size={80} />  Altergemu
+						</Link>
 					</div>
 					<div className="flex lg:hidden">
 						<button
@@ -72,11 +74,11 @@ export default function Header() {
 							behavior: 'smooth'
 						});
 					}} className="hidden lg:flex lg:gap-x-12">
-						{navigation.map((item) => (
-							<a key={item.name} href={item.href} className="text-lg/6 font-semibold text-gray-900">
+						{refer ? (navigation.map((item) => (
+							<a key={item.name} onClick={() => refer.current.scrollTo(item.href)} className="pointer-events-auto text-lg/6 font-semibold text-gray-900">
 								{item.name}
 							</a>
-						))}
+						))) : (<Link href="/" className="pointer-events-auto text-lg/6 font-semibold text-gray-900">Главная</Link>)}
 					</div>
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end">
 						<ButtonHero>  Стать участником </ButtonHero>
@@ -125,7 +127,7 @@ export default function Header() {
 				</Dialog>
 			</header>
 
-		</animated.div>
+		</animated.div >
 
 	)
 }
