@@ -255,7 +255,7 @@ export default function Home() {
           <h3 className='text-green-400  text-4xl font-bold  text-center'>Участники</h3>
           <div className="container mx-auto grid grid-cols-3 mt-16 mx-4 gap-5">
             <Fade cascade damping={0.2} className='bg-gray-600 pb-4 text-center'  >
-              {team != undefined ? team.map((item) => (
+              {team != undefined ? team?.map((item) => (
                 <div key={item.id} className=" h-full ">
                   <img src={item.avatar} className='w-full mb-3' alt="" />
                   <Typography

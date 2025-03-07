@@ -1,7 +1,8 @@
 'use server'
 
 import { JsonValue } from "@prisma/client/runtime/library";
-import { prisma } from "../prisma/prisma-client"
+import { user } from "../drizzle/schema";
+
 
 
 
@@ -28,11 +29,13 @@ export async function getAllTeam(): Promise<Team[]> {
         firstName: true,
         lastName: true,
         bio: true,
-        avatar: true,
+        avatar: true, 
         devStatus: true,
         contacts: true
       }
     });
+const team = await db.select().from(user).
+    console.log(team)
     return team;
   }
   catch (er) {
