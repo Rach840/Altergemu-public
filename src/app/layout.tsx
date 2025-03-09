@@ -3,35 +3,30 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+	variable: "--font-geist-sans",
+	subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+	variable: "--font-geist-mono",
+	subsets: ["latin"],
 });
 
-export const metadata = {
-  metadataBase: process.env.VERCEL_URL
-    ? new URL(`https://${process.env.VERCEL_URL}`)
-    : process.env.CODESPACES
-      ? new URL(`https://${process.env.CODESPACE_NAME}-3000.github.dev`) // Construct the Codespace-specific URL
-      : new URL('http://localhost:3000'),
-}
+export const metadata: Metadata = {
+	title: "Altergemu",
+	description: "Altergemu developers company",
+};
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				{children}
+			</body>
+		</html>
+	);
 }

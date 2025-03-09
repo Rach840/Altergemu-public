@@ -1,57 +1,41 @@
-'use server'
+"use server";
 
-import { JsonValue } from "@prisma/client/runtime/library";
-import { user } from "../drizzle/schema";
+import { User, user } from "./db/schema";
+import { db } from "@/db";
+import { eq } from "drizzle-orm";
+import {compare} from "bcryptjs";
 
+type Error = {
+	success: boolean;
+};
 
-
-
-export interface Team {
-  id: number;
-  firstName: string;
-  lastName: string;
-  bio: string;
-  avatar: string;
-  devStatus: string;
-  contacts: JsonValue;
+export async function getAllTeam(): Promise<User[] | Error> {
+	try {
+		const team = await db
+			.select()
+			.from(user)
+			.where(eq(user.role, "USER") && eq(user.isPublic, true));
+		console.log(team);
+		return team;
+	} catch (error) {
+		console.log(error.message);
+		return { success: false };
+	}
 }
-
-export async function getAllTeam(): Promise<Team[]> {
-  try {
-    const team = await prisma.user.findMany({
-      where: {
-        role: {
-          in: ["ADMIN", "USER"],
-        },
-      },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        bio: true,
-        avatar: true, 
-        devStatus: true,
-        contacts: true
-      }
-    });
-const team = await db.select().from(user).
-    console.log(team)
-    return team;
-  }
-  catch (er) {
-    return er;
-  }
+export async function getMember(id: string): Promise<User | Error> {
+	try {
+		const { member } = await db.select().from(user).where(eq(user.id, id));
+		return member;
+	} catch (error) {
+		console.log(error.message);
+		return { success: false };
+	}
 }
-export async function getMember(id: number): Promise<Team> {
-  try {
-    const member = await prisma.user.findFirst({
-      where: {
-        id: id
-      }
-    })
-    return member
-
-  } catch (er) {
-    return er;
-  }
+export async function getCode(codeInp: string) {
+	const code = '$2a$12$DXJO.5Xjcd0XkfUIeAv8Q.doFjw8hv0pmPSAlFYu0bdXt4jXekkEi';
+	const isCodeValid = await compare(
+		code,
+		codeInp
+	);
+	return isCodeValid
 }

@@ -1,45 +1,22 @@
-'use client'
-import { animated, useSpring } from '@react-spring/web'
-import Header from '@/components/header'
-// import { Parallax, ParallaxLayer } from '@react-spring/parallax'
-import { Button, Carousel, Typography } from '@material-tailwind/react'
-import Link from 'next/link'
-import { Fade } from 'react-awesome-reveal'
-import React, { useState, useEffect } from "react";
-import { useParams, usePathname, useRouter } from "next/navigation"
-import { getMember, Team } from '@/action'
+"use client";
+
+import Dither from "@/components/ui/Dither/Dither";
+
 export default function Member() {
-    const params = Number(useParams().member);
-    const [member, setMember] = useState<Team>()
-    React.useEffect(() => {
-        (async () => {
-            const memberResponce = await getMember(params);
 
-            if (memberResponce != null) {
-                // const teamFormat = teamResponce.map(elem => elem.contacts = JSON.parse(elem.contacts));
-                setMember(memberResponce)
-            }
-        })();
-    }, []);
-    console.log(member)
-    // const currentMember = find((item))
-    return (
-        <div className="bg-gray-900">
-            <Header />
-            <section className="container py-20 mt-20 h-screen mx-auto">
-                <div className='flex justify-between'>
-                    <Fade className='w-5/12' duration={0.4}>
-                        <img src={member?.avatar} className='w-10/12 rounded-lg' alt="" />
-                    </Fade>
-                    <Fade className='w-5/12' duration={0.4}>
+	return (
 
-                    </Fade>
-                </div>
-
-            </section>
-
-        </div>
-
-
-    )
+	<div style={{ width: '100%', height: '600px', position: 'relative' }}>
+		<Dither
+			waveColor={[0.5, 0.5, 0.5]}
+			disableAnimation={false}
+			enableMouseInteraction={true}
+			mouseRadius={0.3}
+			colorNum={4}
+			waveAmplitude={0.3}
+			waveFrequency={3}
+			waveSpeed={0.05}
+		/>
+	</div>
+	);
 }
