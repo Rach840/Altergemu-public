@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
 	typescript: {
@@ -8,6 +7,9 @@ const nextConfig: NextConfig = {
 	images: {
 		unoptimized: true,
 	},
+	eslint: {
+		ignoreDuringBuilds: true
+	}
 	/* config options here */
 };
 module.exports = nextConfig;

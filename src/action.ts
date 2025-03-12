@@ -22,15 +22,6 @@ export async function getAllTeam(): Promise<User[] | Error> {
 		return { success: false };
 	}
 }
-export async function getMember(id: string): Promise<User | Error> {
-	try {
-		const { member } = await db.select().from(user).where(eq(user.id, id));
-		return member;
-	} catch (error) {
-		console.log(error.message);
-		return { success: false };
-	}
-}
 export async function getCode(codeInp: string) {
 	const code = '$2a$12$DXJO.5Xjcd0XkfUIeAv8Q.doFjw8hv0pmPSAlFYu0bdXt4jXekkEi';
 	const isCodeValid = await compare(

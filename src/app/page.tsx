@@ -6,7 +6,7 @@ import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { Button, Typography } from "@material-tailwind/react";
 import Link from "next/link";
 import { Fade } from "react-awesome-reveal";
-import {useEffect, useRef, useState} from "react";
+import { useRef, useState} from "react";
 import { getAllTeam } from "@/action";
 import React from "react";
 import Spline from "@splinetool/react-spline";
@@ -25,26 +25,10 @@ import {
 import DecryptedText from "@/components/ui/DecryptedText/DecryptedText";
 
 import TiltedCard from "@/components/ui/TiltedCard/TiltedCard";
-import Dither from "@/components/ui/Dither/Dither";
 import Threads from "@/components/ui/Threads/Threads";
 import BlurText from "@/components/ui/BlurText/BlurText";
-import {CodeXml} from "lucide-react";
-import {BouncingLogo} from "@/components/ui/animation";
 import Squares from "@/components/ui/Squares/Squares";
-const generateRandomColor = () => {
-	const colors = [
-		"#ff0000", // red
-		"#00ff00", // green
-		"#0000ff", // blue
-		"#ffff00", // yellow
-		"#ff00ff", // magenta
-		"#00ffff", // cyan
-		"#ff8000", // orange
-		"#8000ff", // purple
-	]
-	const newColor = colors[Math.floor(Math.random() * colors.length)]
-	return newColor
-}
+
 export default function Home() {
 	const projects = [
 		{
@@ -61,7 +45,7 @@ export default function Home() {
 			description:
 				"Хоррор игра в локациях старого нацисткого бункера, Главный герой решает отправиться на экскурсию в заброшанный нацисткий бункер который окутан загадкими и мрачной историей, по приезду он понимает что это совсем не экскурсия.\n" +
 				"\n",
-			projectUrl: "",
+			projectUrl: "https://24kvf.ru/",
 			customSize: "",
 		},
 	];
@@ -78,7 +62,7 @@ export default function Home() {
 		})();
 
 	}, []);
-
+console.log(!isScreenLg)
 
 	const arrow = useSpring({
 		config: { duration: 300 },
@@ -105,7 +89,7 @@ export default function Home() {
 
 	<Parallax
 		ref={ref}
-		pages={!isScreenSm ? 4.5 : !isScreenXl ? 2.9 : !isScreenMd ? 4.1 : !isScreenLg ? 2.9 : !isScreenSm ? 4.8 : 2.9}
+		pages={!isScreenSm ? 4.5 : !isScreenXl ? 2.9 : !isScreenMd ? 4.1 : !isScreenLg ? 4 : !isScreenSm ? 4.8 : 4}
 		className="relative"
 	>
 		<Header refer={ref} />
@@ -120,7 +104,7 @@ export default function Home() {
 			/>
 		</ParallaxLayer>
 		<ParallaxLayer
-			speed={0}
+			speed={0.5}
 			offset={0}
 			factor={1}
 			className="bg-gray-900 mx-auto  px-2 pt-7 lg:pt-14  lg:px-8"
@@ -202,26 +186,15 @@ export default function Home() {
 
 		<ParallaxLayer
 			id="about"
-			offset={0.999}
-			speed={0}
+			offset={0.9999}
+			speed={0.3}
 
 			factor={!isScreenLg ? 1.5 : 1}
 			className="bg-opacity-0 z-40  h-full mb-6  py-10"
 		>
-			<Squares
-				speed={0.2}
-				squareSize={40}
-				direction='diagonal' // up, down, left, right, diagonal
-				borderColor='#fff'
-				hoverFillColor='#222'
-
-			/>
-			<Fade damping={0.2}  cascade>
+	
+			<Fade damping={0.2} triggerOnce={true}  cascade>
 				<div className="container bg-gray-900 rounded-xl  px-3 sm:py-4 lg:py-16 lg:px-36  mx-auto">
-					<h2
-						className="">
-
-					</h2>
 					<BlurText
 						text="Команда Altergemu разрабатывает игры, платформы для тестирования, системы контроля версий и не только.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas repellat eius natus ab! Voluptatibus nisi labore deserunt quae, corrupti est? Aspernatur omnis quod reprehenderit eligendi"
 						delay={30}
@@ -264,80 +237,87 @@ export default function Home() {
 		<ParallaxLayer
 			id="projects"
 
-			offset={2}
+			offset={1.9999}
 			speed={0.4}
 			factor={!isScreenLg ? 2.5 : 1}
-			className=" bg-opacity-0 bg-gray-800 absolute  z-40 pt-4 lg:pt-8  mb-6   "
+			className="  absolute  z-40 pt-4 lg:pt-8  mb-6   "
 		>
-			<div className=' container mx-auto bg-gray-800 rounded-xl p-6 lg:p-14'>
+			<Fade
+  
+  duration={400} 
+  triggerOnce={true}
 
+>
+<div className=' container mx-auto bg-gray-800 rounded-xl p-6 lg:p-14'>
 
-			<h3 className="text-green-400 text-4xl mb-3 font-bold text-center">
-				Наши Проекты
-			</h3>
-			<div className="w-full  lg:container mx-auto">
-				<Carousel className="w-full ">
-					<CarouselPrevious />
-					<CarouselContent>
-						{projects.map((project) => (
-							<CarouselItem className="  rounded-xl" key={project.name} >
-								<div className="  px-3 lg:px-14   ">
-									<Card className="bg-opacity-0 border-0 ">
-										<CardContent className="  lg:p-6">
-											<div className="relative md:px-14 space-x-2 lg:space-x-6 lg:p-10 lg:px-14 items-center flex flex-col lg:flex-row  w-full">
-												<img
-													src={project.img}
-													alt="image 1"
-													className={
-														project.customSize
-															? "rounded-t-lg lg:rounded-xl w-full lg:w-6/12 object-cover" +
-															project.customSize
-															: "rounded-t-lg lg:rounded-xl w-full lg:w-6/12 object-cover"
-													}
-												/>
-												<div className=" w-full lg:w-6/12   place-items-center ">
-													<div className="  p-8 rounded-b-xl lg:rounded-xl text-center">
-														<Typography
-															variant="h1"
-															color="white"
-															className="mb-6 text-2xl md:text-3xl lg:text-4xl"
-														>
-															{project.name}
-														</Typography>
-														<Typography
-															variant="lead"
-															color="white"
-															className="mb-3 md:mb-8 lg:mb-13 text-left text-xl opacity-80"
-														>
-															{project.description}
-														</Typography>
-														<div className="flex justify-center gap-2">
-															<Link href={project.projectUrl}>
-																<Button size="lg" variant="gradient" color="black">
-																	Перейти на проект
-																</Button>
-															</Link>
-														</div>
-													</div>
-												</div>
+<h3 className="text-green-400 text-4xl mb-3 font-bold text-center">
+	Наши Проекты
+</h3>
+<div className="w-full  lg:container mx-auto">
+	<Carousel className="w-full ">
+		<CarouselPrevious />
+		<CarouselContent>
+			{projects.map((project) => (
+				<CarouselItem className="  rounded-xl" key={project.name} >
+					<div className="  px-3 lg:px-14   ">
+						<Card className="bg-opacity-0 border-0 ">
+							<CardContent className="  lg:p-6">
+								<div className="relative md:px-14 space-x-2 lg:space-x-6 lg:p-10 lg:px-14 items-center flex flex-col lg:flex-row  w-full">
+									<img
+										src={project.img}
+										alt="image 1"
+										className={
+											project.customSize
+												? "rounded-t-lg lg:rounded-xl w-full lg:w-6/12 object-cover" +
+												project.customSize
+												: "rounded-t-lg lg:rounded-xl w-full lg:w-6/12 object-cover"
+										}
+									/>
+									<div className=" w-full lg:w-6/12   place-items-center ">
+										<div className="  p-8 rounded-b-xl lg:rounded-xl text-center">
+											<Typography
+												variant="h1"
+												color="white"
+												className="mb-6 text-2xl md:text-3xl lg:text-4xl"
+											>
+												{project.name}
+											</Typography>
+											<Typography
+												variant="lead"
+												color="white"
+												className="mb-3 md:mb-8 lg:mb-13 text-left text-xl opacity-80"
+											>
+												{project.description}
+											</Typography>
+											<div className="flex justify-center gap-2">
+												<Link href={project.projectUrl}>
+													<Button size="lg" variant="gradient" color="black">
+														Перейти на проект
+													</Button>
+												</Link>
 											</div>
-										</CardContent>
-									</Card>
+										</div>
+									</div>
 								</div>
-							</CarouselItem>
-						))}
-					</CarouselContent>
+							</CardContent>
+						</Card>
+					</div>
+				</CarouselItem>
+			))}
+		</CarouselContent>
 
-					<CarouselNext />
-				</Carousel>
-			</div>
-			</div>
+		<CarouselNext />
+	</Carousel>
+</div>
+</div>
+</Fade>
+	
 		</ParallaxLayer>
 		<ParallaxLayer
 			id="team"
-			offset={3}
+			offset={2.5}
 			speed={0.4}
-			factor={2}
+			factor={1}
 
 			className="absolute  z-40 bg-transparent  mb-6"
 		>
@@ -350,6 +330,7 @@ export default function Home() {
 				<Fade
 					cascade
 					damping={0.2}
+					triggerOnce={true}
 					className=" pb-4 mx-3 lg:mx-0 text-center"
 				>
 
