@@ -28,6 +28,7 @@ import TiltedCard from "@/components/ui/TiltedCard/TiltedCard";
 import Threads from "@/components/ui/Threads/Threads";
 import BlurText from "@/components/ui/BlurText/BlurText";
 import Squares from "@/components/ui/Squares/Squares";
+import ASCIIText from "@/components/ui/ASCIIText";
 
 export default function Home() {
 	const projects = [
@@ -89,7 +90,7 @@ console.log(!isScreenLg)
 
 	<Parallax
 		ref={ref}
-		pages={!isScreenSm ? 4.5 : !isScreenXl ? 2.9 : !isScreenMd ? 4.1 : !isScreenLg ? 4 : !isScreenSm ? 4.8 : 4}
+		pages={!isScreenSm ? 4.5 : !isScreenXl ? 2.9 : !isScreenMd ? 4.1 : !isScreenLg ? 4 : !isScreenSm ? 4.8 : 5}
 		className="relative"
 	>
 		<Header refer={ref} />
@@ -149,7 +150,8 @@ console.log(!isScreenLg)
 						/>
 					</div>
 				</div>
-				<div style={{zIndex:50, height: !isScreenLg ? "430px" : "650px" }}>
+				<div style={{zIndex:50, height: !isScreenLg ? "430px" : "650px"}}>
+
 					{!isScreenLg ? (
 						<Spline
 							scene="https://prod.spline.design/RAZc0QtUoFzn8Qav/scene.splinecode"
@@ -160,9 +162,16 @@ console.log(!isScreenLg)
 						<Spline
 							scene="https://prod.spline.design/m4LY1JZtHyIpXq4g/scene.splinecode"
 							width={750}
+							id="spline"
 							height={750}
 						/>
+						
 					)}
+					<style>{`
+							#spline canvas{
+							position:relative;
+							}
+							`}</style>
 				</div>
 			</div>
 			<div className="mt-10 hidden lg:flex relative -bottom-10  items-center w-full justify-center gap-x-6">
@@ -399,6 +408,20 @@ console.log(!isScreenLg)
 			</div>
 		</ParallaxLayer>
 
+<ParallaxLayer
+id="team"
+offset={3	}
+speed={0.4}
+factor={1}
+
+className="absolute  z-40 bg-transparent  mb-6"
+>
+<ASCIIText
+  text='Altergemu'
+  enableWaves={true}
+  asciiFontSize={8}
+/>
+	</ParallaxLayer>
 	</Parallax>
 
 		</>
