@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
 
+const {
+	default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
 export default {
 	darkMode: ["class"],
 	content: [
@@ -20,6 +23,20 @@ export default {
 				popover: {
 					DEFAULT: "hsl(var(--popover))",
 					foreground: "hsl(var(--popover-foreground))",
+				},
+				animation: {
+					"star-movement-bottom": "star-movement-bottom linear infinite alternate",
+					"star-movement-top": "star-movement-top linear infinite alternate",
+				},
+				keyframes: {
+					"star-movement-bottom": {
+						"0%": { transform: "translate(0%, 0%)", opacity: "1" },
+						"100%": { transform: "translate(-100%, 0%)", opacity: "0" },
+					},
+					"star-movement-top": {
+						"0%": { transform: "translate(0%, 0%)", opacity: "1" },
+						"100%": { transform: "translate(100%, 0%)", opacity: "0" },
+					},
 				},
 				primary: {
 					DEFAULT: "hsl(var(--primary))",
@@ -59,5 +76,16 @@ export default {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"), addVariablesForColors],
 } satisfies Config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+	let allColors = flattenColorPalette(theme("colors"));
+	let newVars = Object.fromEntries(
+		Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+	);
+
+	addBase({
+		":root": newVars,
+	});
+}

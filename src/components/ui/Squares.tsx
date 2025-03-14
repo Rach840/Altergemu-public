@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-import zIndex from "@mui/material/styles/zIndex";
 import React, { useRef, useEffect } from "react";
 
 type CanvasStrokeStyle = string | CanvasGradient | CanvasPattern;
@@ -15,7 +13,6 @@ interface SquaresProps {
 	borderColor?: CanvasStrokeStyle;
 	squareSize?: number;
 	hoverFillColor?: CanvasStrokeStyle;
-	zIndex?: string;
 }
 
 const Squares: React.FC<SquaresProps> = ({
@@ -163,7 +160,10 @@ const Squares: React.FC<SquaresProps> = ({
 	}, [direction, speed, borderColor, hoverFillColor, squareSize]);
 
 	return (
-		<canvas ref={canvasRef} className={cn(" absolute w-full h-full border-none block", zIndex)}></canvas>
+		<canvas
+			ref={canvasRef}
+			className=" absolute w-full h-full border-none block"
+		></canvas>
 	);
 };
 

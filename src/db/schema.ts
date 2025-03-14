@@ -105,4 +105,4 @@ export const user = mysqlTable(
 	],
 );
 
-export const User = typeof user.$inferInsert;
+export type User = typeof user.$inferSelect;

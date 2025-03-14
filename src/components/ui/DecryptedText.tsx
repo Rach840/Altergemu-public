@@ -37,7 +37,7 @@ export default function DecryptedText({
 	const containerRef = useRef<HTMLSpanElement>(null);
 
 	useEffect(() => {
-		let interval: number;
+		let interval: NodeJS.Timeout;
 		let currentIteration = 0;
 
 		const getNextIndex = (revealedSet: Set<number>): number => {
@@ -195,19 +195,10 @@ export default function DecryptedText({
 		};
 	}, [animateOn, hasAnimated]);
 
-	const hoverProps =
-		animateOn === "hover"
-			? {
-					onMouseEnter: () => setIsHovering(true),
-					onMouseLeave: () => setIsHovering(false),
-				}
-			: {};
-
 	return (
 		<motion.span
 			ref={containerRef}
 			className={`inline-block whitespace-pre-wrap ${parentClassName}`}
-			{...hoverProps}
 			{...props}
 		>
 			<span className="sr-only">{displayText}</span>

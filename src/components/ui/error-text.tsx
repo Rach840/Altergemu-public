@@ -1,11 +1,12 @@
-import { cn } from "@/lib/utils";
 import React from "react";
+import { cn } from "@/lib/utils";
 
-interface Props {
+export const ErrorText = ({
+	text,
+	className,
+}: {
 	text: string;
 	className?: string;
-}
-
-export const ErrorText: React.FC<Props> = ({ text, className }) => {
+}) => {
 	return <p className={cn("text-red-500 text-sm", className)}>{text}</p>;
 };
