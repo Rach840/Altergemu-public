@@ -43,13 +43,13 @@ export default function Home() {
 			<Parallax
 				pages={
 					!isScreenSm
-						? getParallaxHeight(7.5)
+						? getParallaxHeight(7)
 						: !isScreenMd
 							? getParallaxHeight(8)
 							: !isScreenLg
-								? getParallaxHeight(6)
+								? getParallaxHeight(5.2)
 								: !isScreenXl
-									? getParallaxHeight(4.9)
+									? getParallaxHeight(5.6)
 									: getParallaxHeight(4.9)
 				}
 				className="relative"
@@ -58,7 +58,7 @@ export default function Home() {
 				<ParallaxLayer
 					ref={ref}
 					className="absolute h-[100vh] -z-20"
-					sticky={{ start: 0, end: !isScreenMd ? 7 : 4 }}
+					sticky={{ start: 0, end: !isScreenMd ? 7 : !isScreenLg ? 5 : 4 }}
 				>
 					<Squares
 						speed={0.2}
