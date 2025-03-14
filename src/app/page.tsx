@@ -33,13 +33,11 @@ export default function Home() {
 		})();
 	}, []);
 	const ref = useRef(null);
-	console.log(!isScreenSm, !isScreenMd, !isScreenLg, !isScreenXl);
-	console.log(team);
+
 	const getParallaxHeight = (baseHeight: number) =>
 		baseHeight +
 		(+(500 / height).toFixed(2) * team.length) /
 			(isScreenXl ? 3 : isScreenMd ? 2 : 1);
-	console.log(getParallaxHeight(4));
 	return (
 		<>
 			<Parallax

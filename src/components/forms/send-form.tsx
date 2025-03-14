@@ -18,11 +18,11 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { ChevronRight } from "lucide-react";
-import { Alert } from "@/components/ui/alert";
 import { ErrorText } from "@/components/ui/error-text";
 
 export default function SendForm() {
 	const [isLoading, setisLoading] = useState<boolean>(false);
+	const [open, setOpen] = useState<boolean>();
 	const form = useForm({
 		mode: "uncontrolled",
 		initialValues: {
@@ -38,14 +38,12 @@ export default function SendForm() {
 		validate: zodResolver(sendSchema),
 	});
 
-	console.log(form.getValues());
 	const OPTIONS: Option[] = [
 		{ label: "FullStack", value: "FullStack" },
 		{ label: "Frontend", value: "Frontend" },
 		{ label: "BackEnd", value: "BackEnd" },
 		{ label: "DevOps", value: "DevOps" },
 	];
-	console.log(form.errors);
 	const handleSubmit = async ({
 		firstName,
 		lastName,
@@ -73,7 +71,7 @@ export default function SendForm() {
 				about +
 				" ";
 			setisLoading(true);
-			await sendMessageTelegram(message);
+			await sendMessageTelegram(message).then(() => setOpen(false));
 		} catch (e) {
 			console.log(e);
 			form.setFieldError("email", "Ошибка");
@@ -83,7 +81,7 @@ export default function SendForm() {
 	};
 	return (
 		<MantineProvider>
-			<Dialog>
+			<Dialog open={open}>
 				<DialogTrigger className="" asChild>
 					<Button
 						borderRadius="1.35rem"
