@@ -43,16 +43,14 @@ export default function Home() {
 			<Parallax
 				pages={
 					!isScreenSm
-						? getParallaxHeight(17)
-						: !isScreenSm
-							? getParallaxHeight(4.8)
-							: !isScreenMd
-								? getParallaxHeight(17)
+						? getParallaxHeight(7.5)
+						: !isScreenMd
+							? getParallaxHeight(8)
+							: !isScreenLg
+								? getParallaxHeight(6)
 								: !isScreenXl
 									? getParallaxHeight(4.9)
-									: !isScreenLg
-										? getParallaxHeight(6)
-										: getParallaxHeight(4.9)
+									: getParallaxHeight(4.9)
 				}
 				className="relative"
 			>
@@ -60,7 +58,7 @@ export default function Home() {
 				<ParallaxLayer
 					ref={ref}
 					className="absolute h-[100vh] -z-20"
-					sticky={{ start: 0, end: 4 }}
+					sticky={{ start: 0, end: !isScreenMd ? 7 : 4 }}
 				>
 					<Squares
 						speed={0.2}
@@ -196,20 +194,26 @@ export default function Home() {
 						</h3>
 					</div>
 
-					<div className="container mx-auto grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-y-5 gap-x-[120px]">
+					<div className="container mx-auto   place-items-center grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 gap-y-5  md:gap-x-[120px]">
 						{team != undefined ? <Team team={team} /> : <TeamSkeleton />}
 					</div>
 				</ParallaxLayer>
 
 				<ParallaxLayer
 					id="join"
-					offset={!isScreenXl ? 4.4 : 4}
+					offset={!isScreenMd ? 6.3 : !isScreenXl ? 4.4 : 4}
 					speed={0.4}
 					factor={1}
 					className="  relative z-40 bg-transparent  mb-6"
 				>
-					<div className="relative container bg-gray-800 rounded-xl mx-auto  h-[60vh] flex flex-col">
-						<div className="  ">
+					<div className="relative  container bg-gray-800 rounded-xl mx-auto py-14 sm:py-0 h-[30vh] sm:h-[60vh] flex flex-col">
+						{!isScreenMd ? (
+							<div className="">
+								<h3 className="text-green-400 text-3xl   mb-3 font-bold text-center">
+									Попробуй себя в Altergemu
+								</h3>
+							</div>
+						) : (
 							<ASCIIText
 								text="Попробуй себя в Altergemu"
 								enableWaves={true}
@@ -218,7 +222,8 @@ export default function Home() {
 								textFontSize={40}
 								textColor="#2adb6a"
 							/>
-						</div>
+						)}
+
 						<div className="  flex flex-col items-center h-full mb-14 justify-end   ">
 							<SendForm />
 						</div>

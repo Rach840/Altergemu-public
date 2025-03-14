@@ -12,7 +12,7 @@ export default function Team({ team }: { team: User[] }) {
 			cascade
 			damping={0.2}
 			triggerOnce={true}
-			className=" pb-4  mx-3 lg:mx-0 text-center"
+			className=" pb-4 w-[380px] sm:w-[440px] md:w-[340px] lg:w-[480px]  mx-3 lg:mx-0 text-center"
 		>
 			{team.map((item) => (
 				<TiltedCard
@@ -31,7 +31,7 @@ export default function Team({ team }: { team: User[] }) {
 					displayOverlayContent={true}
 					overlayContent={
 						<SpotlightCard
-							className="custom-spotlight-card absolute w-[500px] top-[400px] md:top-[300px] md:w-[300px] lg:w-[435px] p-6"
+							className="custom-spotlight-card absolute w-[400px] sm:w-[500px] top-[400px] md:top-[300px] md:w-[300px] lg:w-[435px] p-6"
 							spotlightColor="rgba(0, 229, 255, 0.2)"
 						>
 							<h2 className="text-2xl text-white font-bold mb-2">
