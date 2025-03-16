@@ -6,7 +6,6 @@ import { Fade } from "react-awesome-reveal";
 import { useRef, useState } from "react";
 import { Error, getAllTeam } from "@/action";
 import React from "react";
-
 import { User } from "@/db/schema";
 import { useResize } from "@/components/useResize";
 import DecryptedText from "@/components/ui/DecryptedText";
@@ -18,7 +17,6 @@ import SplineBlock from "@/components/ui/Spline";
 import TeamSkeleton from "@/components/ui/Team-skeleton";
 import Team from "@/components/ui/Team";
 import ProjectCarousel from "@/components/ui/project-carousel";
-
 import SendForm from "@/components/forms/send-form";
 
 export default function Home() {
